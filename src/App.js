@@ -2,7 +2,7 @@ import "./App.css";
 
 function App() {
   return (
-    <div class="max-w-md mx-auto my-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+    <div class="max-w-md items-center justify-center h-screen bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
       <div class="md:flex">
         <div class="md:shrink-0">
           <img
