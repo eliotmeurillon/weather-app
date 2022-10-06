@@ -7,7 +7,7 @@ function App() {
         <div class="md:shrink-0">
           <img
             class="h-48 w-full object-cover md:h-full md:w-48"
-            src="/img/building.jpg"
+            src="https://images.unsplash.com/photo-1637734433731-621aca1c8cb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=404&q=80"
             alt="Modern building architecture"
           />
         </div>
