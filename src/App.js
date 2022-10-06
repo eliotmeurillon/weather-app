@@ -2,7 +2,7 @@ import "./App.css";
 
 function App() {
   return (
-    <div class="flex items-center justify-center h-screen">
+    <div class="flex items-center justify-center h-screen bg-gray-400">
       <div class="max-w-md bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
         <div class="md:flex">
           <div class="md:shrink-0">
