@@ -16,7 +16,7 @@ function App() {
             Company retreats
           </div>
           <a
-            href="#"
+            href="https://www.google.com"
             class="block mt-1 text-lg leading-tight font-medium text-black hover:underline"
           >
             Incredible accomodation for your team
