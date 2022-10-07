@@ -77,6 +77,11 @@ function App() {
               <br />
               Longitude: {long}
               <br />
+              Error: {error}
+              <br />
+              loading: {loading.toString()}
+              <br />
+              Error2: {error2}
               weather: {weather?.weather[0].description} <br />
               temp: {weather?.main.temp}
             </p>
