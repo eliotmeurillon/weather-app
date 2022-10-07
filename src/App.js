@@ -1,9 +1,54 @@
 import "./App.css";
+import React from "react";
 
 function App() {
+  //get geolocation data
+  const [lat, setLat] = React.useState(null);
+  const [long, setLong] = React.useState(null);
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLat(position.coords.latitude);
+          setLong(position.coords.longitude);
+        },
+        (error) => {
+          setError(error.message);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
+    }
+  }, []);
+
+  //weather data api call
+  const [weather, setWeather] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+  const [error2, setError2] = React.useState(null);
+
+  React.useEffect(() => {
+    if (lat && long) {
+      setLoading(true);
+      fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=2066538434c9842f86ec6c57a221a269`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setWeather(data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setError2(error.message);
+          setLoading(false);
+        });
+    }
+  }, [lat, long]);
+
   return (
-    <div class="flex items-center justify-center h-screen bg-gray-400">
-      <div class="max-w-md bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+    <div class="flex items-center justify-center h-screen bg-gray-300">
+      <div class="max-w-md bg-white rounded-xl shadow-lg shadow-blue-500/50 overflow-hidden md:max-w-2xl">
         <div class="md:flex">
           <div class="md:shrink-0">
             <img
@@ -26,6 +71,14 @@ function App() {
               Looking to take your team away on a retreat to enjoy awesome food
               and take in some sunshine? We have a list of places to do just
               that.
+            </p>
+            <p class="mt-2 text-slate-500">
+              Latitude: {lat}
+              <br />
+              Longitude: {long}
+              <br />
+              weather: {weather?.weather[0].description} <br />
+              temp: {weather?.main.temp}
             </p>
           </div>
         </div>
