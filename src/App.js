@@ -28,11 +28,10 @@ function App() {
   const [loading, setLoading] = React.useState(false);
   const [error2, setError2] = React.useState(null);
 
-  const API_KEY = process.env.MY_WEATHER_API_KEY;
-
   React.useEffect(() => {
     if (lat && long) {
       setLoading(true);
+      const API_KEY = process.env.MY_WEATHER_API_KEY;
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${API_KEY}`
       )
