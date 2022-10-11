@@ -106,6 +106,8 @@ function App() {
   //     </div>
   //   );
   // }
+
+  // eslint-disable-next-line
   const [catUrl, setCatUrl] = useState("");
   const [error, setError] = useState(false);
   const [state, setState] = useState("");
@@ -128,7 +130,11 @@ function App() {
   return (
     <div>
       <div>
-        {state === "loading" ? <h1>Loading...</h1> : <img src="{catUrl}" />}
+        {state === "loading" ? (
+          <h1>Loading...</h1>
+        ) : (
+          <img src="{catUrl}" alt="catphoto" />
+        )}
       </div>
     </div>
   );
