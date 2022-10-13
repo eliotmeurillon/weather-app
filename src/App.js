@@ -126,7 +126,8 @@ function App() {
         setState("error");
         setError(err);
       });
-  }, []);
+    console.log(env_key);
+  }, [env_key]);
   if (state === "error") return <h1>{error.toString()}</h1>;
   return (
     <div>
@@ -137,7 +138,6 @@ function App() {
           <img src="{catUrl}" alt="catphoto" />
         )}
       </div>
-      <h1>api key: {env_key}</h1>
     </div>
   );
 }
