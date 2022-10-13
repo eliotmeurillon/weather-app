@@ -111,10 +111,11 @@ function App() {
   const [catUrl, setCatUrl] = useState("");
   const [error, setError] = useState(false);
   const [state, setState] = useState("");
+  const env_key = process.env.EN_APP_API_KEY;
   useEffect(() => {
     setState("loading");
     axios
-      .get("https://cataas.com/cat?json=true")
+      .get("https://cataas.com/cat?json=true", { crossdomain: true })
       .then((res) => {
         console.log(res);
         setState("success");
@@ -136,6 +137,7 @@ function App() {
           <img src="{catUrl}" alt="catphoto" />
         )}
       </div>
+      <h1>api key: {env_key}</h1>
     </div>
   );
 }
