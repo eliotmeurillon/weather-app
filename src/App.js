@@ -2,6 +2,7 @@ import "./App.css";
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { data } from "autoprefixer";
 
 function App() {
   //get geolocation data
@@ -108,41 +109,51 @@ function App() {
   // }
 
   // eslint-disable-next-line
-  const [catUrl, setCatUrl] = useState("");
+  const [weather, setWeather] = useState("null");
+
+  const [lat, setLat] = useState(null);
+  const [long, setLong] = useState(null);
+
   const [error, setError] = useState(false);
   const [state, setState] = useState("");
+  // eslint-disable-next-line
   const env_key = process.env.REACT_APP_MY_WEATHER_API_KEY;
 
   useEffect(() => {
     setState("loading");
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLat(position.coords.latitude);
+          setLong(position.coords.longitude);
+        },
+        (error) => {
+          setError(error.message);
+        }
+      );
+    }
     axios
-      .get("https://cataas.com/cat?json=true", { crossdomain: true })
-      .then((res) => {
-        console.log(res);
+      .get(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${env_key}`
+      )
+      .then((data) => {
         setState("success");
-        setCatUrl("https://cataas.com" + res.data.url);
+        setWeather(data);
       })
       .catch((err) => {
         console.error("Error:", err);
         setState("error");
         setError(err);
       });
-    console.log(env_key + " is the key");
-  }, [env_key]);
-  if (state === "error")
-    return (
-      <div>
-        <h1>{error.toString()} </h1>
-        <h1>{env_key}</h1>
-      </div>
-    );
+  }, [lat, long, env_key]);
+  if (state === "error") return <h1>{error.toString()} </h1>;
   return (
     <div>
       <div>
         {state === "loading" ? (
           <h1>Loading...</h1>
         ) : (
-          <img src="{catUrl}" alt="catphoto" />
+          <h1>{weather?.main.temp}</h1>
         )}
       </div>
     </div>
