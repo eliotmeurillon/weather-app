@@ -111,7 +111,8 @@ function App() {
   const [catUrl, setCatUrl] = useState("");
   const [error, setError] = useState(false);
   const [state, setState] = useState("");
-  const env_key = process.env.EN_APP_API_KEY;
+  const env_key = process.env.REACT_APP_MY_WEATHER_API_KEY;
+
   useEffect(() => {
     setState("loading");
     axios
@@ -126,9 +127,15 @@ function App() {
         setState("error");
         setError(err);
       });
-    console.log(env_key);
+    console.log(env_key + " is the key");
   }, [env_key]);
-  if (state === "error") return <h1>{error.toString()}</h1>;
+  if (state === "error")
+    return (
+      <div>
+        <h1>{error.toString()} </h1>
+        <h1>{env_key}</h1>
+      </div>
+    );
   return (
     <div>
       <div>
