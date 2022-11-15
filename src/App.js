@@ -7,10 +7,10 @@ function App() {
   const [weather, setWeather] = useState("null");
   const [lat, setLat] = useState(null);
   const [long, setLong] = useState(null);
+  const [dateState, setDateState] = useState(new Date());
+  const [firstWordCityName, setFirstWordCityName] = useState(null);
   const [error, setError] = useState(false);
   const [state, setState] = useState("");
-
-  const env_key = process.env.REACT_APP_MY_WEATHER_API_KEY;
 
   useEffect(() => {
     setState("loading");
@@ -26,14 +26,21 @@ function App() {
       );
     }
     if (lat && long) {
+      setInterval(() => setDateState(new Date()), 30000);
       axios
-        .get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${env_key}`
-        )
+        .get("/.netlify/functions/token-hider", {
+          params: {
+            lat: lat,
+            lon: long,
+          },
+        })
         .then((response) => {
           console.log(response.data);
           setState("success");
           setWeather(response.data);
+          const cityName = response.data.name;
+          const firstWordCityName = cityName.replace(/\d.*/, "");
+          setFirstWordCityName(firstWordCityName);
         })
         .catch((err) => {
           console.error("Error:", err);
@@ -41,7 +48,7 @@ function App() {
           setError(err);
         });
     }
-  }, [lat, long, env_key]);
+  }, [lat, long]);
   if (state === "error")
     return (
       <div>
@@ -49,8 +56,24 @@ function App() {
       </div>
     );
   return (
-    <div>
-      <div>
+    <div class="flex items-center justify-center h-screen">
+      <div class="flex flex-col items-center bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="flex flex-row gap-2">
+          {state === "loading" ? (
+            <h1>Loading...</h1>
+          ) : (
+            <h1>{firstWordCityName}</h1>
+          )}
+          <p>
+            {dateState.toLocaleString("fr-FR", {
+              hour: "numeric",
+              minute: "numeric",
+              hour12: false,
+            })}
+          </p>
+        </div>
+        <div>02</div>
+        <div>03</div>
         {state === "loading" ? <h1>Loading...</h1> : <h1>{weather?.base}</h1>}
       </div>
     </div>
