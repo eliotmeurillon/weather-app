@@ -81,7 +81,7 @@ function App() {
         {state === "loading" ? (
           <h1>Loading...</h1>
         ) : (
-          <img alt="weather-icon" src={logo} />
+          <img class="w-24" alt="weather-icon" src={logo} />
         )}
         <div>03</div>
         {state === "loading" ? <h1>Loading...</h1> : <h1>{weather?.base}</h1>}
