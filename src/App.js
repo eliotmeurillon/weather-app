@@ -9,6 +9,7 @@ function App() {
   const [long, setLong] = useState(null);
   const [dateState, setDateState] = useState(new Date());
   const [firstWordCityName, setFirstWordCityName] = useState(null);
+  const [logo, setLogo] = useState(null);
   const [error, setError] = useState(false);
   const [state, setState] = useState("");
 
@@ -41,6 +42,10 @@ function App() {
           const cityName = response.data.name;
           const firstWordCityName = cityName.replace(/\d.*/, "");
           setFirstWordCityName(firstWordCityName);
+          const logo = require("./assets/openweathermap/" +
+            response?.data.weather[0].icon +
+            ".svg");
+          setLogo(logo);
         })
         .catch((err) => {
           console.error("Error:", err);
@@ -72,7 +77,12 @@ function App() {
             })}
           </p>
         </div>
-        <div>02</div>
+
+        {state === "loading" ? (
+          <h1>Loading...</h1>
+        ) : (
+          <img alt="weather-icon" src={logo} />
+        )}
         <div>03</div>
         {state === "loading" ? <h1>Loading...</h1> : <h1>{weather?.base}</h1>}
       </div>
