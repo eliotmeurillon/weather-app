@@ -109,29 +109,29 @@ function App() {
               )}
             </div>
           </div>
-          <div class="flex flex-row gap-2 justify-around">
-            <div class="flex flex-col items-center bg-white/20 rounded-md shadow-sm p-2">
+          <div class="grid grid-cols-3 gap-2 justify-around text-base">
+            <div class="flex flex-col items-center bg-white/20 rounded-md shadow-sm p-1">
               <img class="w-10" alt="humidity-icon" src={humidityLogo} />
               {state === "loading" ? (
                 <p>Loading...</p>
               ) : (
-                <p class="text-xl">{weather?.main?.humidity}%</p>
+                <p>{weather?.main?.humidity} %</p>
               )}
             </div>
-            <div class="flex flex-col items-center bg-white/20 rounded-md shadow-sm p-2">
+            <div class="flex flex-col items-center bg-white/20 rounded-md shadow-sm p-1">
               <img class="w-10" alt="humidity-icon" src={windLogo} />
               {state === "loading" ? (
                 <p>Loading...</p>
               ) : (
-                <p class="text-xl">{weather?.main?.humidity}%</p>
+                <p>{weather?.wind?.speed} m/s</p>
               )}
             </div>
-            <div class="flex flex-col items-center bg-white/20 rounded-md shadow-sm p-2">
+            <div class="flex flex-col items-center bg-white/20 rounded-md shadow-sm p-1">
               <img class="w-10" alt="humidity-icon" src={pressureLogo} />
               {state === "loading" ? (
                 <p>Loading...</p>
               ) : (
-                <p class="text-xl">{weather?.main?.humidity}%</p>
+                <p>{weather?.main?.pressure} hPa</p>
               )}
             </div>
           </div>
