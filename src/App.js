@@ -70,64 +70,68 @@ function App() {
     <div class="flex items-center justify-center h-screen bg-[#4A7DFF]">
       <div class=" bg-[#C9E5FF]/90 backdrop-blur-lg rounded-xl shadow-xl overflow-hidden">
         <div class="flex flex-col  justify-center p-5 font-Jakarta text-[#658CAF] font-semibold">
-          <div class="flex flex-row justify-between">
-            {state === "loading" ? (
-              <p class="text-xs">Loading...</p>
-            ) : (
-              <p class="text-xs">{firstWordCityName}</p>
-            )}
-            <p class="text-xs">
-              {dateState.toLocaleString("fr-FR", {
-                hour: "numeric",
-                minute: "numeric",
-                hour12: false,
-              })}
-            </p>
+          <div class="flex flex-row justify-between items-center">
+            <div class="text-2xl bg-white/20 rounded-md shadow-sm p-2">
+              {state === "loading" ? (
+                <p>Loading...</p>
+              ) : (
+                <p>{firstWordCityName}</p>
+              )}
+            </div>
+            <div class="text-2xl">
+              <p>
+                {dateState.toLocaleString("fr-FR", {
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: false,
+                })}
+              </p>
+            </div>
           </div>
-          <div class="flex flex-row gap-2 items-center">
+          <div class="flex flex-row items-center">
             {state === "loading" ? (
               <p class="text-2xl">Loading...</p>
             ) : (
-              <img class="w-24" alt="weather-icon" src={logo} />
+              <img class="w-40" alt="weather-icon" src={logo} />
             )}
             <div class="flex flex-col">
               {state === "loading" ? (
-                <p class="text-2xl">Loading...</p>
+                <p class="text-7xl">Loading...</p>
               ) : (
-                <h1 class="text-transparent text-3xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 font-bold">
+                <h1 class="text-transparent text-7xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 font-bold">
                   {weatherRound}°C
                 </h1>
               )}
               {state === "loading" ? (
                 <p>Loading...</p>
               ) : (
-                <p class="text-xs">{weather?.weather?.[0].description}</p>
+                <p class="text-lg ml-2">{weather?.weather?.[0].description}</p>
               )}
             </div>
           </div>
           <div class="flex flex-row gap-2 justify-around">
-            <div class="flex flex-col items-center">
-              <img class="w-5" alt="humidity-icon" src={humidityLogo} />
+            <div class="flex flex-col items-center bg-white/20 rounded-md shadow-sm p-2">
+              <img class="w-10" alt="humidity-icon" src={humidityLogo} />
               {state === "loading" ? (
                 <p>Loading...</p>
               ) : (
-                <p class="text-xs">{weather?.main?.humidity}%</p>
+                <p class="text-xl">{weather?.main?.humidity}%</p>
               )}
             </div>
-            <div class="flex flex-col items-center">
-              <img class="w-5" alt="humidity-icon" src={windLogo} />
+            <div class="flex flex-col items-center bg-white/20 rounded-md shadow-sm p-2">
+              <img class="w-10" alt="humidity-icon" src={windLogo} />
               {state === "loading" ? (
                 <p>Loading...</p>
               ) : (
-                <p class="text-xs">{weather?.main?.humidity}%</p>
+                <p class="text-xl">{weather?.main?.humidity}%</p>
               )}
             </div>
-            <div class="flex flex-col items-center">
-              <img class="w-5" alt="humidity-icon" src={pressureLogo} />
+            <div class="flex flex-col items-center bg-white/20 rounded-md shadow-sm p-2">
+              <img class="w-10" alt="humidity-icon" src={pressureLogo} />
               {state === "loading" ? (
                 <p>Loading...</p>
               ) : (
-                <p class="text-xs">{weather?.main?.humidity}%</p>
+                <p class="text-xl">{weather?.main?.humidity}%</p>
               )}
             </div>
           </div>
