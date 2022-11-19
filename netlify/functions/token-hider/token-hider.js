@@ -14,7 +14,7 @@ const handler = async function (event) {
   // TODO: customize your URL and API keys set in the Netlify Dashboard
   // this is secret too, your frontend won't see this
   const API_SECRET = process.env.REACT_APP_MY_WEATHER_API_KEY;
-  const URL = `http://api.openweathermap.org/data/2.5/weather?lat=${lat.lat}&lon=${lon.lon}&APPID=${API_SECRET}`;
+  const URL = `http://api.openweathermap.org/data/2.5/weather?lat=${lat.lat}&lon=${lon.lon}&APPID=${API_SECRET}&units=metric&lang=fr`;
 
   console.log("Constructed URL is ...", URL);
 

@@ -2,9 +2,13 @@ import "./App.css";
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import humidityLogo from "./assets/humidity.svg";
+import windLogo from "./assets/wind.svg";
+import pressureLogo from "./assets/barometer.svg";
 
 function App() {
   const [weather, setWeather] = useState("null");
+  const [weatherRound, setWeatherRound] = useState(null);
   const [lat, setLat] = useState(null);
   const [long, setLong] = useState(null);
   const [dateState, setDateState] = useState(new Date());
@@ -42,6 +46,8 @@ function App() {
           const cityName = response.data.name;
           const firstWordCityName = cityName.replace(/\d.*/, "");
           setFirstWordCityName(firstWordCityName);
+          const TempRound = Math.round(response.data.main.temp);
+          setWeatherRound(TempRound);
           const logo = require("./assets/openweathermap/" +
             response?.data.weather[0].icon +
             ".svg");
@@ -61,30 +67,71 @@ function App() {
       </div>
     );
   return (
-    <div class="flex items-center justify-center h-screen">
-      <div class="flex flex-col items-center bg-white rounded-xl shadow-md overflow-hidden">
-        <div class="flex flex-row gap-2">
-          {state === "loading" ? (
-            <h1>Loading...</h1>
-          ) : (
-            <h1>{firstWordCityName}</h1>
-          )}
-          <p>
-            {dateState.toLocaleString("fr-FR", {
-              hour: "numeric",
-              minute: "numeric",
-              hour12: false,
-            })}
-          </p>
+    <div class="flex items-center justify-center h-screen bg-[#4A7DFF]">
+      <div class=" bg-[#C9E5FF]/90 backdrop-blur-lg rounded-xl shadow-xl overflow-hidden">
+        <div class="flex flex-col  justify-center p-5 font-Jakarta text-[#658CAF] font-semibold">
+          <div class="flex flex-row justify-between">
+            {state === "loading" ? (
+              <p class="text-xs">Loading...</p>
+            ) : (
+              <p class="text-xs">{firstWordCityName}</p>
+            )}
+            <p class="text-xs">
+              {dateState.toLocaleString("fr-FR", {
+                hour: "numeric",
+                minute: "numeric",
+                hour12: false,
+              })}
+            </p>
+          </div>
+          <div class="flex flex-row gap-2 items-center">
+            {state === "loading" ? (
+              <p class="text-2xl">Loading...</p>
+            ) : (
+              <img class="w-24" alt="weather-icon" src={logo} />
+            )}
+            <div class="flex flex-col">
+              {state === "loading" ? (
+                <p class="text-2xl">Loading...</p>
+              ) : (
+                <h1 class="text-transparent text-3xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 font-bold">
+                  {weatherRound}°C
+                </h1>
+              )}
+              {state === "loading" ? (
+                <p>Loading...</p>
+              ) : (
+                <p class="text-xs">{weather?.weather?.[0].description}</p>
+              )}
+            </div>
+          </div>
+          <div class="flex flex-row gap-2 justify-around">
+            <div class="flex flex-col items-center">
+              <img class="w-5" alt="humidity-icon" src={humidityLogo} />
+              {state === "loading" ? (
+                <p>Loading...</p>
+              ) : (
+                <p class="text-xs">{weather?.main?.humidity}%</p>
+              )}
+            </div>
+            <div class="flex flex-col items-center">
+              <img class="w-5" alt="humidity-icon" src={windLogo} />
+              {state === "loading" ? (
+                <p>Loading...</p>
+              ) : (
+                <p class="text-xs">{weather?.main?.humidity}%</p>
+              )}
+            </div>
+            <div class="flex flex-col items-center">
+              <img class="w-5" alt="humidity-icon" src={pressureLogo} />
+              {state === "loading" ? (
+                <p>Loading...</p>
+              ) : (
+                <p class="text-xs">{weather?.main?.humidity}%</p>
+              )}
+            </div>
+          </div>
         </div>
-
-        {state === "loading" ? (
-          <h1>Loading...</h1>
-        ) : (
-          <img class="w-24" alt="weather-icon" src={logo} />
-        )}
-        <div>03</div>
-        {state === "loading" ? <h1>Loading...</h1> : <h1>{weather?.base}</h1>}
       </div>
     </div>
   );
